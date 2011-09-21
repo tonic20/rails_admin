@@ -656,7 +656,6 @@ describe "RailsAdmin Config DSL Edit Section" do
   end
 
   describe "Paperclip Support" do
-
     it "should show a file upload field" do
       RailsAdmin.config User do
         edit do
@@ -665,6 +664,18 @@ describe "RailsAdmin Config DSL Edit Section" do
       end
       visit new_path(:model_name => "user")
       should have_selector("input#user_avatar")
+    end
+  end
+
+  describe 'Carrierwave Support' do
+    it 'should show a file upload field' do
+      RailsAdmin.config User do
+        edit do
+          field :cw_avatar_image
+        end
+      end
+      visit rails_admin_new_path(:model_name => 'user')
+      should have_selector('#user_cw_avatar_image.fileUploadField')
     end
   end
 
