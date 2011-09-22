@@ -24,4 +24,8 @@
                 - if (value = values[index]) || !RailsAdmin::config.compact_show_view
                   %div.field{:class => "#{field.abstract_model.to_param.singularize}_#{field.name}"}
                     %div.label= field.label
-                    %div.value= value || ' - '
+                    %div.value
+                      - unless field.is_a?(RailsAdmin::Config::Fields::Types::CarrierwaveImage)
+                        = value || ' - '
+                      - else
+                        = image_tag @object.send("#{field.name}_url", :thumb)
